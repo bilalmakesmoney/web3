@@ -7,7 +7,7 @@ import { EditionMetadataWithOwnerOutputSchema } from '@thirdweb-dev/sdk';
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
-  const { contract } = useContract('0xD07E8Eb3C275e90729055877f5E93d2207509310');
+  const { contract } = useContract('0xC6280156d5A6257D03a3159fD1A446De575cCc74');
   const { mutateAsync: createCampaign } = useContractWrite(contract, 'createCampaign');
 
   const address = useAddress();
@@ -57,10 +57,27 @@ catch (error) {
   }
 
   const donate = async (pId, amount) => {
-    const data = await contract.call('donateToCampaign', [pId], { value: ethers.utils.parseEther(amount)});
-
-    return data;
-  }
+    try {
+      console.log(`Starting donation to campaign ID: ${pId}, Amount: ${amount} ETH`);
+      
+      // Ensure amount is greater than 0
+      if (!amount || parseFloat(amount) <= 0) {
+        throw new Error('Donation amount must be greater than zero.');
+      }
+  
+      // Call the donateToCampaign contract function
+      const data = await contract.call('donateToCampaign', [pId], {
+        value: ethers.utils.parseEther(amount), // Convert ETH to Wei
+      });
+  
+      console.log('Donation successful:', data);
+      return data; // Return data for success confirmation
+    } catch (error) {
+      console.error('Failed to donate:', error.message || error);
+      throw error; // Propagate error to the frontend
+    }
+  };
+  
 
   const getDonations = async (pId) => {
     const donations = await contract.call('getDonators', [pId]);
