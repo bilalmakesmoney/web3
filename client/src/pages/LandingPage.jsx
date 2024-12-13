@@ -1,5 +1,4 @@
 import image from "../assets/hero.png";
-import Background from "../assets/background.png";
 import { RxArrowTopRight } from "react-icons/rx";
 import { Link } from "react-router-dom";
 
@@ -10,7 +9,7 @@ const LandingPage = () => {
         <h1 className="text-4xl lg:text-[50px] xl:text-[56px] leading-tight lg:leading-[65px] xl:leading-[80px] font-bold">
           Bee the <span className="text-primary">Hope</span>,{" "}
           <br className="hidden md:block" />
-          Spread the <span className="text-primary">Buzz</span> and
+          Spread the <span className="text-primary">Buzz</span> and{" "}
           <br className="hidden lg:block" />
           Save <span className="text-primary">Lives</span> Together
         </h1>

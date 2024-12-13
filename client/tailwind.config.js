@@ -13,6 +13,7 @@ module.exports = {
       },
       screens: {
         new: "1000px",
+        search: "1050px",
         bad: "400px",
       },
       boxShadow: {
